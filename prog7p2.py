@@ -1,89 +1,124 @@
-
 from tkinter import *
 from tkinter import messagebox
 
-class principal():
+class principal:
+    """Clase principal para la aplicación Tkinter.
+    Main class for the Tkinter application."""
+
     def __init__(self):
         self.ven = Tk()
-        self.ven.title('Programa 6 con ventana GRID')
-        self.ven.geometry('450x250')
-        self.a =0
+        self.ven.title('Programa 9 con ventana GRID - Mejorado / Program 9 with GRID window - Improved')
+        # La geometría se deja como referencia, pero 'grid' maneja el diseño.
+        # Geometry is left as a reference, but 'grid' manages the layout.
+        self.ven.geometry('550x300') 
+        
+        # Inicializa la lista principal para almacenar los números.
+        self.lista = []
+        # self.aux1 y self.aux2 se eliminan al usar min() y max().
+        # self.a y self.b se mantienen solo si la función agregar va a usarlos.
+        self.a = 0
         self.b = 0
-        self.lista=[]
-        self.aux1 = 0
-        self.aux2 = self.lista[0]
-
-
+        
     def inicio(self):
-        l1 = Label(self.ven, text="programa 9")
-        l1.place(X=10, Y=2)
-        l2 = Label(self.ven, text="Escribe un numero")
-        l2.place(x=3, Y=1, padx=15, pady=10)
-        Label(self.ven, text="").place(x=2, y=2)
-        self.n1 = Entry(self.ven)
-        self.n1.place(x=3, y=2)
-        l3 = Label(self.ven, text="Escribe otro numero")
-        l3.place(x=5, y=1, padx=5, pady=5)
-        Label(self.ven, text="").place(x=4, y=2)
-        self.n2 = Entry(self.ven)
-        self.n2.place(x=5, y=2)
-        b1 = Button(self.ven, text="agregar", command=self.agregar)
-        b1.place(x=6, y=1, pady=10)
-        b2 = Button(self.ven, text="mayor", command=self.mayor)
-        b2.place(x=6, y=2)
-        b3 = Button(self.ven, text="menor", command=self.menor)
-        b3.place(x=6, y=3, padx=10)
-        b4 = Button(self.ven, text="salir", command=self.salir)
-        b4.place(x=6, y=4, padx=25)
-        self.listaElementos = Label(self.ven, text="")
-        self.listaElementos.place(x=8, y=2, pady=15)
-        self.listview = Listbox(self.ven, height=10, width=15, bg= 'grey', activestyle="dotbox", fg= "red")
-        self.listview.place(x=2, y=4)
+        """Configura la interfaz gráfica usando el gestor de geometría grid.
+        Sets up the graphical interface using the grid geometry manager."""
+        
+        # Título de la aplicación.
+        Label(self.ven, text="Programa 9 - Lista de Números", font=('Arial', 12, 'bold')).grid(row=0, column=0, columnspan=4, pady=10)
+
+        # === Entradas (Columna 0 y 1) ===
+        
+        # Entrada 1
+        Label(self.ven, text="Escribe un número 1:").grid(row=1, column=0, sticky='w', padx=5, pady=5)
+        self.n1 = Entry(self.ven, width=15)
+        self.n1.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
+        
+        # Entrada 2
+        Label(self.ven, text="Escribe un número 2:").grid(row=2, column=0, sticky='w', padx=5, pady=5)
+        self.n2 = Entry(self.ven, width=15)
+        self.n2.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
+        
+        # === Botones (Columna 2) ===
+        Button(self.ven, text="Agregar", command=self.agregar, width=10).grid(row=1, column=2, padx=10, pady=5)
+        Button(self.ven, text="Mayor", command=self.mayor, width=10).grid(row=2, column=2, padx=10, pady=5)
+        Button(self.ven, text="Menor", command=self.menor, width=10).grid(row=3, column=2, padx=10, pady=5)
+        Button(self.ven, text="Salir", command=self.salir, width=10).grid(row=4, column=2, padx=10, pady=5)
+        
+        # === Listbox y Display de Lista (Columna 3) ===
+        Label(self.ven, text="Elementos Agregados:", font=('Arial', 10)).grid(row=0, column=3, sticky='w', padx=5, pady=5)
+
+        self.listview = Listbox(self.ven, height=10, width=20, bg='lightgrey', fg='red', activestyle="dotbox")
+        # El Listbox se expande vertical y horizontalmente.
+        self.listview.grid(row=1, column=3, rowspan=4, sticky='nsew', padx=10, pady=5)
+        
+        # Etiqueta para mostrar la lista interna de Python (debajo de las entradas).
+        Label(self.ven, text="Lista Interna:", font=('Arial', 10, 'italic')).grid(row=3, column=0, sticky='w', padx=5, pady=5)
+        self.listaElementos = Label(self.ven, text=f"{self.lista}", relief=SUNKEN, anchor='w')
+        self.listaElementos.grid(row=4, column=0, columnspan=2, sticky='ew', padx=5)
+
+        # Configura las expansiones de columnas y filas.
+        self.ven.grid_columnconfigure(3, weight=1)
+        self.ven.grid_rowconfigure(4, weight=1)
 
         self.ven.mainloop()
 
     def mayor(self):
-        if len(self.lista) > 0:
-        #for i in self.lista:
-            if self.aux1 < self.lista[self.cont]:
-                self.aux1 = self.lista[self.cont]
-            self.cont += 1
-            if len(self.lista)-1 < self.cont:
-                print(f'el mayor es {self.aux1}')
-            else:
-                return self.mayor()
-        else:
-            print("Lista vacia")
-            messagebox.showerror("Error", "La lista esta vacia")
+        """Encuentra y muestra el número mayor de la lista usando max().
+        Finds and displays the maximum number in the list using max()."""
+        # Verifica si la lista está vacía.
+        if not self.lista: 
+            messagebox.showerror("Error", "La lista está vacía. Agregue números primero. / The list is empty. Add numbers first.")
+            return
+
+        # Uso eficiente de la función integrada max().
+        numero_mayor = max(self.lista)
+        messagebox.showinfo('El Mayor / The Maximum', f'El número mayor en la lista es: {numero_mayor}')
 
     def menor(self):
-        if len(self.lista) > 0:
-            for i in self.lista:
-                if self.aux2 < i:
-                    self.aux2 = i
-                    print(f'el menor es {self.aux2}')
-                    messagebox.showinfo('El menor', self.aux2)
-                else:
-                    messagebox.showerror("Error","La lista esta vacia")
+        """Encuentra y muestra el número menor de la lista usando min().
+        Finds and displays the minimum number in the list using min()."""
+        # Verifica si la lista está vacía.
+        if not self.lista:
+            messagebox.showerror("Error", "La lista está vacía. Agregue números primero. / The list is empty. Add numbers first.")
+            return
+
+        # Uso eficiente de la función integrada min().
+        numero_menor = min(self.lista)
+        messagebox.showinfo('El Menor / The Minimum', f'El número menor en la lista es: {numero_menor}')
 
     def agregar(self):
+        """Obtiene dos números, los valida y los agrega a la lista y Listbox.
+        Gets two numbers, validates them, and adds them to the list and Listbox."""
         try:
-            self.a =int(self.n1.get())
+            # Obtiene y valida el primer número.
+            self.a = int(self.n1.get())
+            # Obtiene y valida el segundo número.
+            self.b = int(self.n2.get())
+            
+            # Agrega ambos a la lista interna.
             self.lista.append(self.a)
-            self.n1.delete(0,END)
-            self.b= int(self.n2.get())
-            self.listview.insert(self.listview.size.self.a)
             self.lista.append(self.b)
-            self.n2.delete(0,END)
-            print(self.lista)
+            
+            # Agrega ambos al Listbox para visualización.
+            self.listview.insert(END, self.a) 
+            self.listview.insert(END, self.b) 
+            
+            # Limpia los campos de entrada.
+            self.n1.delete(0, END)
+            self.n2.delete(0, END)
+            
+            # Actualiza la etiqueta de la lista.
             self.listaElementos.config(text=f"{self.lista}")
+            
         except ValueError:
-            messagebox.showerror("error","algun dato no es numero")
-           
-
+            # Manejo de error si el input no es un entero o está vacío.
+            messagebox.showerror("Error", "Ambos valores deben ser números enteros válidos. / Both values must be valid integers.")
+            
     def salir(self):
+        """Cierra la ventana de la aplicación. / Closes the application window."""
         self.ven.destroy()
 
 if __name__ == '__main__':
+    # Crea y ejecuta la aplicación.
     app = principal()
     app.inicio()
