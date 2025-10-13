@@ -1,4 +1,3 @@
-
 class validacion(): # Define la clase de validacion y calculo (Define validation and calculation class)
     def __init__(self): # Constructor de la clase (Class constructor)
         self.suma = 0 # Inicializa la suma de valores (Initialize sum of values)
@@ -15,7 +14,8 @@ class validacion(): # Define la clase de validacion y calculo (Define validation
         for i in lista:
             self.suma += i # Acumula la suma total (Accumulate the total sum)
         # Calcula el promedio (Calculate the average)
-        self.Promedio = self.suma / len(lista)
+        # NOTA: La variable self.Promedio tiene una capitalización diferente al atributo self.promedio.
+        # NOTE: The variable self.Promedio has different capitalization than the attribute self.promedio.
+        self.Promedio = self.suma / len(lista) 
         # Retorna el promedio calculado (Return the calculated average)
         return self.promedio
-            

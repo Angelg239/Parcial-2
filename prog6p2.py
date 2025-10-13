@@ -25,8 +25,8 @@ class principal():
         # List to store the added numbers
         self.lista = []
         
-        # Variables auxiliares para encontrar el mayor y el menor (corregidas)
-        # Auxiliary variables for finding the maximum and minimum (corrected)
+        # Variables auxiliares para encontrar el mayor y el menor (se usan min/max)
+        # Auxiliary variables for finding the maximum and minimum (min/max are used)
         self.aux_mayor = 0 # Usar un nombre más descriptivo / Use a more descriptive name
         self.aux_menor = 0 # Inicializado a 0, se actualizará en agregar() / Initialized to 0, will be updated in agregar()
         
@@ -40,13 +40,13 @@ class principal():
         # Etiqueta de título
         # Title label
         l1 = Label(self.ven, text="Programa 9")
-        l1.grid(row=1, column=2, columnspan=2) # Centrado mejor
+        l1.grid(row=1, column=2, columnspan=2) # Uso del gestor grid (Use of grid manager)
         
         # Etiqueta e campo de entrada para el primer número
         # Label and entry field for the first number
         l2 = Label(self.ven, text="Escribe un número (A):")
         l2.grid(row=3, column=1, padx=15, pady=10, sticky=W)
-        Label(self.ven, text="").grid(row=2, column=2) # Espaciador
+        Label(self.ven, text="").grid(row=2, column=2) # Espaciador / Spacer
         self.n1 = Entry(self.ven)
         self.n1.grid(row=3, column=2, columnspan=2)
         
@@ -54,7 +54,7 @@ class principal():
         # Label and entry field for the second number
         l3 = Label(self.ven, text="Escribe otro número (B):")
         l3.grid(row=5, column=1, padx=15, pady=5, sticky=W)
-        Label(self.ven, text="").grid(row=4, column=2) # Espaciador
+        Label(self.ven, text="").grid(row=4, column=2) # Espaciador / Spacer
         self.n2 = Entry(self.ven)
         self.n2.grid(row=5, column=2, columnspan=2)
         

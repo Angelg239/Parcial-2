@@ -4,8 +4,8 @@ from validarRepaso import Validar # Importa la clase Validar (asumiendo que exis
 
 class Principal():
     
-    # ¡CRÍTICO! El constructor debe ser __init__ (doble guion bajo).
-    # CRITICAL! The constructor must be __init__ (double underscore).
+    # CRÍTICO: El constructor está escrito correctamente con doble guion bajo.
+    # CRITICAL: The constructor is correctly written with double underscore.
     def __init__(self):
         self.ventana = Tk()
         self.ventana.geometry("400x200")

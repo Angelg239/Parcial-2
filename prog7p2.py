@@ -14,8 +14,8 @@ class principal:
         
         # Inicializa la lista principal para almacenar los números.
         self.lista = []
-        # self.aux1 y self.aux2 se eliminan al usar min() y max().
-        # self.a y self.b se mantienen solo si la función agregar va a usarlos.
+        # Variables auxiliares que se mantienen aunque se usen min/max.
+        # Auxiliary variables that are kept even though min/max are used.
         self.a = 0
         self.b = 0
         
@@ -49,14 +49,17 @@ class principal:
 
         self.listview = Listbox(self.ven, height=10, width=20, bg='lightgrey', fg='red', activestyle="dotbox")
         # El Listbox se expande vertical y horizontalmente.
+        # The Listbox expands vertically and horizontally.
         self.listview.grid(row=1, column=3, rowspan=4, sticky='nsew', padx=10, pady=5)
         
         # Etiqueta para mostrar la lista interna de Python (debajo de las entradas).
+        # Label to show the internal Python list (below the entries).
         Label(self.ven, text="Lista Interna:", font=('Arial', 10, 'italic')).grid(row=3, column=0, sticky='w', padx=5, pady=5)
         self.listaElementos = Label(self.ven, text=f"{self.lista}", relief=SUNKEN, anchor='w')
         self.listaElementos.grid(row=4, column=0, columnspan=2, sticky='ew', padx=5)
 
         # Configura las expansiones de columnas y filas.
+        # Configures column and row expansions.
         self.ven.grid_columnconfigure(3, weight=1)
         self.ven.grid_rowconfigure(4, weight=1)
 
