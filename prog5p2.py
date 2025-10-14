@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 class Principal():
     # Constructor de la clase (Class constructor)
-    def __init__(self):
+    def __init__(self): 
         self.ven = Tk() # Crear la ventana principal como atributo (Create main window as attribute)
         # Asignar titulo a la ventana (Set window title)
         self.ven.title('Programa 5 con ventana')

@@ -7,7 +7,7 @@ class principal:
 
     def __init__(self):
         self.ven = Tk()
-        self.ven.title('Programa 9 con ventana GRID - Mejorado / Program 9 with GRID window - Improved')
+        self.ven.title('Programa 9 con ventana GRID - Mejorado')
         # La geometría se deja como referencia, pero 'grid' maneja el diseño.
         # Geometry is left as a reference, but 'grid' manages the layout.
         self.ven.geometry('550x300') 
@@ -24,7 +24,7 @@ class principal:
         Sets up the graphical interface using the grid geometry manager."""
         
         # Título de la aplicación.
-        Label(self.ven, text="Programa 9 - Lista de Números", font=('Arial', 12, 'bold')).grid(row=0, column=0, columnspan=4, pady=10)
+        Label(self.ven, text="Programa 9", font=('Arial', 12, 'bold')).grid(row=0, column=0, columnspan=4, pady=10)
 
         # === Entradas (Columna 0 y 1) ===
         
@@ -115,10 +115,10 @@ class principal:
             
         except ValueError:
             # Manejo de error si el input no es un entero o está vacío.
-            messagebox.showerror("Error", "Ambos valores deben ser números enteros válidos. / Both values must be valid integers.")
+            messagebox.showerror("Error", "Ambos valores deben ser números enteros válidos.")
             
     def salir(self):
-        """Cierra la ventana de la aplicación. / Closes the application window."""
+        """Cierra la ventana de la aplicación."""
         self.ven.destroy()
 
 if __name__ == '__main__':
